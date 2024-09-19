@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS Ingredients(
 ''')
 
 cursor.execute('''
-CREATE TABLE recipe_ingredients (
+CREATE TABLE IF NOT EXISTS recipe_ingredients (
     recipeId TEXT,
     ingredientId INTEGER,
     FOREIGN KEY (recipeId) REFERENCES Buff_recipes(id),
