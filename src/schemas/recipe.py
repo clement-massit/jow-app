@@ -48,7 +48,7 @@ class Recipe(BaseModel):
     url: str
     description: str
     preparationTime: int
-    cookingTime: int
+    cookingTime: Optional[int]=0
     preparationExtraTimePerCover: Optional[int]=0
     coversCount: int
     ingredients: Optional[list]
