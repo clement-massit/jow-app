@@ -1,7 +1,7 @@
 from fastapi import FastAPI, HTTPException, Request
 from pydantic import BaseModel
 from typing import List
-from src.routers import recipe, ingredients
+from src.routers import recipe
 
 
 
@@ -9,7 +9,6 @@ from src.routers import recipe, ingredients
 app = FastAPI()
 
 app.include_router(recipe.router)
-app.include_router(ingredients.router)
 
 
 @app.get("/")
