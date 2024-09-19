@@ -53,40 +53,40 @@ CREATE TABLE IF NOT EXISTS List_ingredients(
 
 # Insérer des données factices
 # cursor.execute("INSERT INTO users (name, age) VALUES ('Alice', 25)")
-cursor.execute("""INSERT INTO Buff_recipes (id,
-                       name,
-                       url,
-                       description,
-                       preparationTime,
-                       cookingTime,
-                       preparationExtraTimePerCover,
-                       coversCount) 
-               VALUES ('id_test',
-               'name_test',
-               'http://google.com', 
-               'decription_test',
-               5,
-               20,
-               0,
-               4);""")
+# cursor.execute("""INSERT INTO Buff_recipes (id,
+#                        name,
+#                        url,
+#                        description,
+#                        preparationTime,
+#                        cookingTime,
+#                        preparationExtraTimePerCover,
+#                        coversCount) 
+#                VALUES ('id_test',
+#                'name_test',
+#                'http://google.com', 
+#                'decription_test',
+#                5,
+#                20,
+#                0,
+#                4);""")
 
 
-cursor.execute('''
-INSERT INTO Ingredients (id,name,quantity,unit)
-VALUES (1,'Farine', 0.5, 'Kg');
-''')
-cursor.execute('''
-INSERT INTO Ingredients (id,name,quantity,unit)
-VALUES (2,'Sucre', 0.1, 'Kg');
-''')
-cursor.execute('''
-INSERT INTO recipe_ingredients (recipeId, ingredientId) 
-VALUES ('id_test', 1);
+# cursor.execute('''
+# INSERT INTO Ingredients (id,name,quantity,unit)
+# VALUES (1,'Farine', 0.5, 'Kg');
+# ''')
+# cursor.execute('''
+# INSERT INTO Ingredients (id,name,quantity,unit)
+# VALUES (2,'Sucre', 0.1, 'Kg');
+# ''')
+# cursor.execute('''
+# INSERT INTO recipe_ingredients (recipeId, ingredientId) 
+# VALUES ('id_test', 1);
 
-''')
-cursor.execute('''
-INSERT INTO recipe_ingredients (recipeId, ingredientId) 
-VALUES ('id_test', 2);
+# ''')
+# cursor.execute('''
+# INSERT INTO recipe_ingredients (recipeId, ingredientId) 
+# VALUES ('id_test', 2);
 
-''')
-conn.commit()
+# ''')
+# conn.commit()
