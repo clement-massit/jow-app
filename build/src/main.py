@@ -12,21 +12,7 @@ app = FastAPI()
 
 app.include_router(recipe.router)
 
-origins = [
-    "http://localhost/",
-    "http://localhost:5000/",
-    "http://localhost:5173/",
-    "https://test.datapulp.net/api/",
-    "https://test.datapulp.net/",
-    "https://localhost/",
-    "https://localhost:5000/",   
-    "http://localhost:5174/",
-    "https://localhost:5174/",
-    "https://localhost:5173/",
-
-
-
-    ]
+origins = ["*"]
 
 app.add_middleware(
     CORSMiddleware,
