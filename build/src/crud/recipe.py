@@ -43,9 +43,9 @@ def get_recipes_from_jow(name: str, limit:int):
         
     ) for recipe in recipes]
 
-    for recipe in list_recipes:
-        print(recipe)
-        add_to_own_recipes(recipe)
+    # for recipe in list_recipes:
+    #     print(recipe)
+    #     add_to_own_recipes(recipe)
     return list_recipes
 
 def add_to_own_recipes(recipe: schemas.Recipe):
