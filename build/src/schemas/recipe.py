@@ -1,6 +1,5 @@
 from typing import Optional, Dict
 from pydantic import BaseModel
-from .shared import ContextCheckingBaseModel
  
 class RecipeAsk(BaseModel):
     """
@@ -22,7 +21,7 @@ class RecipesAsk(BaseModel):
     name: str
     limit: int
 
-class Ingredients(ContextCheckingBaseModel):
+class Ingredients(BaseModel):
     """
     name: str
     quantity: float
@@ -32,7 +31,7 @@ class Ingredients(ContextCheckingBaseModel):
     quantity: float
     unit: str
     
-class Recipe(ContextCheckingBaseModel):
+class Recipe(BaseModel):
     """
     id: str
     name: str
