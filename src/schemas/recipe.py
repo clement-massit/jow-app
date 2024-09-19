@@ -38,10 +38,11 @@ class Recipe(ContextCheckingBaseModel):
     name: str
     url: str
     description: str
-    preparation_time: int
-    cooking_time: int
-    preparation_extra_time_per_cover: int
-    covers_count: int
+    preparationTime: int
+    cookingTime: int
+    preparationExtraTimePerCover: int
+    coversCount: int
+    ingredients: list
     """
     id: str
     name: str
@@ -49,7 +50,7 @@ class Recipe(ContextCheckingBaseModel):
     description: str
     preparationTime: int
     cookingTime: int
-    preparationExtraTimePerCover: int
+    preparationExtraTimePerCover: Optional[int]=0
     coversCount: int
-    ingredients: list
+    ingredients: Optional[list]
     
