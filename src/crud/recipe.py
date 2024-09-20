@@ -152,3 +152,41 @@ def request():
     cursor.execute('''SELECT * FROM recipe_ingredients''')
     res = cursor.fetchall()
     print(res)
+
+
+def delete_recipe_from_own(name):
+    conn = sqlite3.connect('jow.db')
+    cursor = conn.cursor()
+    
+    try:
+        # Commencer une transaction
+        conn.execute('BEGIN TRANSACTION;')
+
+        # Supprimer les ingrédients de la table `recipe_ingredients`
+        cursor.execute('''
+            DELETE FROM recipe_ingredients 
+            WHERE recipeId = (SELECT id FROM Buff_recipes WHERE name = ?);
+        ''', (name,))
+        
+        # Supprimer les ingrédients de la table `Ingredients`
+        cursor.execute('''
+            DELETE FROM Ingredients 
+            WHERE recipeId = (SELECT id FROM Buff_recipes WHERE name = ?);
+        ''', (name,))
+        
+        # Supprimer la recette de la table `Buff_recipes`
+        cursor.execute('''
+            DELETE FROM Buff_recipes 
+            WHERE name = ?;
+        ''', (name,))
+
+        # Commit pour valider les suppressions
+        conn.commit()
+        print(f"La recette '{name}' et tous ses ingrédients associés ont été supprimés.")
+        
+    except sqlite3.Error as e:
+        # Si une erreur se produit, annuler toutes les modifications
+        conn.rollback()
+        print(f"Erreur lors de la suppression de la recette: {e}")
+
+    

@@ -12,16 +12,18 @@ def get_recipe(recipe:schemas.RecipeAsk):
 def get_recipes(recipes:schemas.RecipesAsk):
     return crud.get_recipes_from_jow(recipes.name, recipes.limit)
 
-
-@router.get("/own/recipes")
-def get_own_recipes():
-    # print(crud.request())
-    return crud.get_own_recipes()
-
 @router.post("/recipes/{recipe_name}")
 def add_to_own_recipes(recipe_name:str):
     recipe = crud.get_recipe_from_jow(recipe_name)
     # print(recipe_name)
     crud.add_to_own_recipes(recipe)
     
-    
+
+@router.get("/own/recipes")
+def get_own_recipes():
+    # print(crud.request())
+    return crud.get_own_recipes()
+
+@router.delete("/own/recipes/{name}")
+def delete_recipe_from_own(name:str):
+    crud.delete_recipe_from_own(name)
