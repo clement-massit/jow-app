@@ -52,7 +52,7 @@ def add_to_own_recipes(recipe: schemas.Recipe):
     conn = sqlite3.connect('jow.db')
     cursor = conn.cursor()
     
-    sql = '''INSERT INTO Buff_recipes 
+    sql = '''INSERT or REPLACE INTO Buff_recipes 
                    (id,
                     name,
                     url,
