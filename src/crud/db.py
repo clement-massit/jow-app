@@ -4,8 +4,10 @@ import os
 conn = sqlite3.connect('jow.db')
 
 cursor = conn.cursor()
-# cursor.execute('''DROP TABLE recipe_ingredients''')
-# cursor.execute('''DROP TABLE Ingredients''')
+cursor.execute('''DROP TABLE recipe_ingredients''')
+cursor.execute('''DROP TABLE Ingredients''')
+cursor.execute('''DROP TABLE Buff_recipes''')
+
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Buff_recipes(
     id TEXT PRIMARY KEY,
