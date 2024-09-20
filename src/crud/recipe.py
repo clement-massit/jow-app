@@ -74,16 +74,16 @@ def add_to_own_recipes(recipe: schemas.Recipe):
     conn.commit()
     for ingredient in recipe.ingredients:
         cursor.execute('''
-        INSERT OR REPLACE INTO Ingredients (name,quantity,unit)
-        VALUES (?,?,?) RETURNING *;
-        ''', (ingredient.name, ingredient.quantity, ingredient.unit))
+        INSERT OR REPLACE INTO Ingredients (recipeId,name,quantity,unit)
+        VALUES (?,?,?,?) RETURNING *;
+        ''', (recipe.id, ingredient.name, ingredient.quantity, ingredient.unit))
         ingredient_added =cursor.fetchone()
         print(ingredient_added)
 
         cursor.execute('''
-        INSERT OR REPLACE INTO recipe_ingredients (recipeId, ingredientId) 
+        INSERT OR REPLACE INTO recipe_ingredients (recipeId, nameIngredient) 
         VALUES (?,?);
-        ''', (recipe.id, ingredient_added[0]))
+        ''', (recipe.id, ingredient_added[1]))
 
     conn.commit()
    
@@ -92,16 +92,30 @@ def add_to_own_recipes(recipe: schemas.Recipe):
 def get_own_recipes():
     conn = sqlite3.connect('jow.db')
     cursor = conn.cursor()
-    recipes = cursor.execute("""SELECT br.*,
-     GROUP_CONCAT(i.name || ' (' || i.quantity || ' ' || i.unit || ')', ', ') AS ingredients_list
-
-                             FROM Buff_recipes br 
-                             JOIN recipe_ingredients ri ON br.id = ri.recipeId
-                             JOIN Ingredients i ON ri.ingredientId = i.id
-                             GROUP BY br.name""")
-   
+    recipes = cursor.execute('''
+    SELECT 
+        r.id,
+        r.name AS recipe_name,
+        r.url,
+        r.description,
+        r.preparationTime,
+        r.cookingTime,
+        r.preparationExtraTimePerCover,
+        r.coversCount,
+        GROUP_CONCAT(i.name || ' (' || i.quantity || ' ' || i.unit || ')' , ', ') AS ingredients_list
+    FROM 
+        Buff_recipes r
+    JOIN 
+        recipe_ingredients ri ON r.id = ri.recipeId
+    JOIN 
+        Ingredients i ON ri.nameIngredient = i.name AND r.id = i.recipeId
+    GROUP BY 
+        r.id, r.name, r.url, r.description, r.preparationTime, r.cookingTime, r.preparationExtraTimePerCover, r.coversCount
+    ORDER BY 
+        r.id;
+''')
     rows = cursor.fetchall()
-
+    print(rows)
     # Traitement des résultats
     recipes = []
     for row in rows:

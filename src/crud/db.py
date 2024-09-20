@@ -4,7 +4,8 @@ import os
 conn = sqlite3.connect('jow.db')
 
 cursor = conn.cursor()
-
+# cursor.execute('''DROP TABLE recipe_ingredients''')
+# cursor.execute('''DROP TABLE Ingredients''')
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Buff_recipes(
     id TEXT PRIMARY KEY,
@@ -21,28 +22,31 @@ CREATE TABLE IF NOT EXISTS Buff_recipes(
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Ingredients(
-    name TEXT PRIMARY KEY,
+    recipeId INTEGER NOT NULL,
+    name TEXT NOT NULL,
     quantity FLOAT8,
-    unit TEXT NOT NULL
+    unit TEXT NOT NULL,
+    FOREIGN KEY (recipeId) REFERENCES Buff_recipes(id),
+    PRIMARY KEY (name,recipeId)
 );
 ''')
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS recipe_ingredients (
     recipeId TEXT,
-    ingredientId INTEGER,
+    nameIngredient Name,
     FOREIGN KEY (recipeId) REFERENCES Buff_recipes(id),
-    FOREIGN KEY (ingredientId) REFERENCES Ingredients(id),
-    PRIMARY KEY (recipeId, ingredientId)
+    FOREIGN KEY (nameIngredient) REFERENCES Ingredients(name),
+    PRIMARY KEY (recipeId, nameIngredient)
 );
 ''')
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS List_ingredients(
     id SERIAL PRIMARY KEY,
-    id_ingredients INT NOT NULL,
+    nameIngredient TEXT NOT NULL,
     id_recipe TEXT NOT NULL,
-    FOREIGN KEY (id_ingredients) REFERENCES Ingredients(id),
+    FOREIGN KEY (nameIngredient) REFERENCES Ingredients(name),
     FOREIGN KEY (id_recipe) REFERENCES Own_Recipe(id)
 );
 ''')
