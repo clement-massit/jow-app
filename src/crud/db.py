@@ -21,8 +21,7 @@ CREATE TABLE IF NOT EXISTS Buff_recipes(
 
 cursor.execute('''
 CREATE TABLE IF NOT EXISTS Ingredients(
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    name TEXT NOT NULL,
+    name TEXT PRIMARY KEY,
     quantity FLOAT8,
     unit TEXT NOT NULL
 );

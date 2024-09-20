@@ -74,14 +74,14 @@ def add_to_own_recipes(recipe: schemas.Recipe):
     conn.commit()
     for ingredient in recipe.ingredients:
         cursor.execute('''
-        INSERT INTO Ingredients (name,quantity,unit)
+        INSERT OR REPLACE INTO Ingredients (name,quantity,unit)
         VALUES (?,?,?) RETURNING *;
         ''', (ingredient.name, ingredient.quantity, ingredient.unit))
         ingredient_added =cursor.fetchone()
         print(ingredient_added)
 
         cursor.execute('''
-        INSERT INTO recipe_ingredients (recipeId, ingredientId) 
+        INSERT OR REPLACE INTO recipe_ingredients (recipeId, ingredientId) 
         VALUES (?,?);
         ''', (recipe.id, ingredient_added[0]))
 
