@@ -28,6 +28,6 @@ def get_own_recipes():
 def delete_recipe_from_own(name:str):
     crud.delete_recipe_from_own(name)
 
-@router.post("/recipe/img", response_model=schemas.ImgUrl)
-def get_img_from_recipe_url(recipeUrl:schemas.RecipeUrl):
-    return crud.get_img_from_recipe_url(recipeUrl.recipeUrl)
+@router.post("/recipe/img", response_model=schemas.ImgUrl | None)
+def get_img_from_recipe_url(recipeurlImg: schemas.RecipeUrlImg):
+    return crud.get_img_from_recipe_url(recipeurlImg.recipeUrl, recipeurlImg.recipeName)
