@@ -53,3 +53,11 @@ class Recipe(BaseModel):
     coversCount: Optional[int]=0
     ingredients: Optional[list]
     
+class RecipeUrl(BaseModel):
+    """"""
+    recipeUrl: str
+
+        
+class ImgUrl(BaseModel):
+    """"""
+    imgUrl: str

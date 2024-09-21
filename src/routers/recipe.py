@@ -27,3 +27,7 @@ def get_own_recipes():
 @router.delete("/own/recipes/{name}")
 def delete_recipe_from_own(name:str):
     crud.delete_recipe_from_own(name)
+
+@router.post("/recipe/img", response_model=schemas.ImgUrl)
+def get_img_from_recipe_url(recipeUrl:schemas.RecipeUrl):
+    return crud.get_img_from_recipe_url(recipeUrl.recipeUrl)
