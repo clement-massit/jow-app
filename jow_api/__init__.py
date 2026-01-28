@@ -5,11 +5,13 @@ import json
 
 
 class Ingredient:
-    def __init__(self, name, quantity, unit, isOptional):
+    def __init__(self, name, quantity, unit, isOptional, quantityAdapted=None):
         self.name = name
         self.quantity = quantity
         self.unit = unit
         self.isOptional = isOptional
+        self.quantityAdapted = quantityAdapted
+        
 
 
 class JowResult:
@@ -27,6 +29,8 @@ class JowResult:
         preparationExtraTimePerCover=None,
         coversCount=None,
         cookingTime=None,
+        adaptedFor=None,
+        adaptationFactor=None,
     ):
         self.id = id
         self.url = url
@@ -40,6 +44,8 @@ class JowResult:
         self.preparationExtraTimePerCover = preparationExtraTimePerCover
         self.coversCount = coversCount
         self.json = json
+        self.adaptedFor = adaptedFor
+        self.adaptationFactor = adaptationFactor
 
 
 class Jow:
