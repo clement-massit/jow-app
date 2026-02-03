@@ -49,8 +49,9 @@ def get_custom_css():
         margin-top: clamp(3rem, 6vw, 4rem);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
         transition: transform 0.3s ease, box-shadow 0.3s ease;
-        position: relative;
+
         overflow: visible;
+        
     }
     
     .recipe-card-wrapper:hover {
@@ -231,6 +232,71 @@ def get_custom_css():
         min-height: clamp(150px, 25vw, 250px);
         max-height: clamp(200px, 30vw, 300px);
         object-fit: cover;
+    }
+
+    /* HTML Button Styles for Unified Card */
+    .card-actions {
+        display: flex;
+        gap: 10px;
+        margin-top: 1.5rem;
+        padding-top: 1rem;
+        border-top: 1px solid #F0F0F0;
+    }
+
+    .card-btn {
+        flex: 1;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem 1rem;
+        border-radius: 12px;
+        text-decoration: none !important;
+        font-weight: 500;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+        border: 1px solid transparent;
+        cursor: pointer;
+        line-height: 1.5;
+    }
+
+    .card-btn:hover {
+        transform: translateY(-2px);
+    }
+
+    .card-btn-primary {
+        background-color: white;
+        border-color: #EEE;
+        color: #2C2C2C;
+    }
+    
+    .card-btn-primary:hover {
+        background-color: #F8F8F8;
+        border-color: #DDD;
+        color: #000;
+    }
+    
+    .card-btn-heart {
+        background-color: white;
+        border-color: #EEE;
+        color: #2C2C2C;
+    }
+    
+    .card-btn-heart:hover {
+        background-color: #FFF5F5 !important;
+        border-color: #FFDADA !important;
+        color: #FF6B6B !important;
+    }
+
+    .card-btn-danger {
+        background-color: white;
+        border-color: #EEE;
+        color: #666;
+    }
+
+    .card-btn-danger:hover {
+        background-color: #FFF5F5;
+        border-color: #FFDADA;
+        color: #E03131;
     }
     
     /* Media Queries for specific breakpoints */

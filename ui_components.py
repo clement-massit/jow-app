@@ -36,38 +36,36 @@ def render_recipe_card(recipe, idx):
 
     
     # Render card with functional heart icon in a single shell
-    st.markdown(f'<div class="recipe-card-wrapper">', unsafe_allow_html=True)
-    
-    # Card Header (Image, Title, Badges)
-    st.markdown(f"""
-                <div class="recipe-card-elevated">
-                    <div class="card-image-container">
-                        <img src="{img}" class="card-image" alt="{name}">
-                    </div>
-                    <div class="card-content-elevated">
-                        <div class="card-title">{name}</div>
-                        <div class="card-badges">
-                            <div class="card-badge">⏱️ {total} min</div>
-                            <div class="card-badge">🔥 {cuisson} min</div>
-                            <div class="card-badge">👥 {getattr(recipe, 'adaptedFor', 2)} pers.</div>
-                        </div>
-                        <ul class="ing-list">
-                            {"".join([f"<li>{i.name} : <b>{i.quantityAdapted} {i.unit}</b></li>" for i in ingredients])}
-                        </ul>
-                    </div>
-                </div>
-    """, unsafe_allow_html=True)
-    
-    # Buttons area
-    c1, c2 = st.columns([0.6, 0.4])
-    with c1:
-        st.link_button("🚀 Voir la recette", getattr(recipe, 'url', '#'), use_container_width=True)
-    with c2:
-        if st.button("❤️", key=f"heart_{idx}", use_container_width=True):
-            add_favorite(recipe, getattr(recipe, 'adaptedFor', 2), getattr(recipe, 'adaptationFactor', 1))
-            st.toast(f"💖 {name} ajouté aux favoris !")
+    # Render card with functional heart icon in a single shell
+    st.markdown(f'''
+<div class="recipe-card-wrapper">
+    <div class="recipe-card-elevated">
+        <div class="card-image-container">
+            <img src="{img}" class="card-image" alt="{name}">
+        </div>
+        <div class="card-content-elevated">
+            <div class="card-title">{name}</div>
+            <div class="card-badges">
+                <div class="card-badge">⏱️ {total} min</div>
+                <div class="card-badge">🔥 {cuisson} min</div>
+                <div class="card-badge">👥 {getattr(recipe, 'adaptedFor', 2)} pers.</div>
+            </div>
+            <ul class="ing-list">
+                {"".join([f"<li>{i.name} : <b>{i.quantityAdapted} {i.unit}</b></li>" for i in ingredients])}
+            </ul>
             
-    st.markdown('</div><br>', unsafe_allow_html=True)
+            <div class="card-actions">
+                <a href="{getattr(recipe, 'url', '#')}" target="_blank" class="card-btn card-btn-primary">
+                    🚀 Voir la recette
+                </a>
+                <a href="?add_fav_idx={idx}" target="_self" class="card-btn card-btn-heart">
+                    ❤️ Favoris
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+''', unsafe_allow_html=True)
 
 
 def render_pagination(current_page, total_pages):
@@ -137,36 +135,36 @@ def render_favorite_item(row):
     total_time = (row['prepa_time'] or 0) + (row['cooking_time'] or 0)
     
     # Render favorite card with same style as recipe cards
-    st.markdown(f"""
-        <div class="recipe-card-wrapper">
-            <div class="recipe-card-elevated favorite-card">
-                <div class="card-image-container">
-                    <img src="{row['image_url']}" class="card-image" alt="{row['name']}">
-                </div>
-                <div class="card-content-elevated">
-                    <div class="card-title">{row['name']}</div>
-                    <div class="favorite-date">Ajouté le {row['created_at'][:10]}</div>
-                    <div class="card-badges">
-                        <div class="card-badge">⏱️ {total_time} min</div>
-                        <div class="card-badge">🔥 {row['cooking_time'] or 0} min</div>
-                        <div class="card-badge">👥 {row['adaptedFor']} pers.</div>
-                    </div>
-                    <ul class="ing-list">
-                        {ingredients_html}
-                    </ul>
-                </div>
+    # Render favorite card with same style as recipe cards
+    st.markdown(f'''
+<div class="recipe-card-wrapper">
+    <div class="recipe-card-elevated favorite-card">
+        <div class="card-image-container">
+            <img src="{row['image_url']}" class="card-image" alt="{row['name']}">
+        </div>
+        <div class="card-content-elevated">
+            <div class="card-title">{row['name']}</div>
+            <div class="favorite-date">Ajouté le {row['created_at'][:10]}</div>
+            <div class="card-badges">
+                <div class="card-badge">⏱️ {total_time} min</div>
+                <div class="card-badge">🔥 {row['cooking_time'] or 0} min</div>
+                <div class="card-badge">👥 {row['adaptedFor']} pers.</div>
+            </div>
+            <ul class="ing-list">
+                {ingredients_html}
+            </ul>
+            
+            <div class="card-actions">
+                    <a href="{row['url']}" target="_blank" class="card-btn card-btn-primary">
+                    🚀 Voir
+                </a>
+                <a href="?del_fav_id={row['id']}" target="_self" class="card-btn card-btn-danger">
+                    🗑️ Supprimer
+                </a>
             </div>
         </div>
-    """, unsafe_allow_html=True)
+    </div>
+</div>
+''', unsafe_allow_html=True)
     
-    # Action Buttons
-    c1, c2, _ = st.columns([0.5, 0.5, 0.8])
-    with c1:
-        if st.button("🗑️ Supprimer", key=f"del_{row['id']}", width='stretch', type="secondary"):
-            remove_favorite(row['id'])
-            delete_clicked = True
-    with c2:
-        st.link_button("🚀 Voir", row['url'], width='stretch')
-    st.markdown("<br>", unsafe_allow_html=True)
-    
-    return delete_clicked
+    return False
